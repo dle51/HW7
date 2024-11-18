@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Dan Le / Section 001
  *
  *   This java file contains the problem solutions for the methods selectionSort,
  *   mergeSortDivisibleByKFirst, asteroidsDestroyed, and numRescueCanoes methods.
@@ -36,11 +36,19 @@ public class ProblemSolutions {
 
         int n = values.length;
 
+
         for (int i = 0; i < n - 1; i++) {
 
-            // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
-            // "SELECTION SORT" ALGORITHM.
-            // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
+            int index = i;
+            for (int j = i + 1; j < n; j++) {
+                if ((!ascending && values[j] > values[index]) || (ascending && values[j] < values[index])) {
+                    index = j;
+                }
+            }
+            int temp = values[i];
+            values[i] = values[index];
+            values[index] = temp;
+
 
         }
 
@@ -155,8 +163,16 @@ public class ProblemSolutions {
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
+        Arrays.sort(asteroids);
+        for (int m : asteroids) {
+            if (m <= mass) {
+                mass += m;
+            } else {
+                return false;
+            }
+        }
 
-        return false;
+        return true;
 
     }
 
@@ -193,8 +209,27 @@ public class ProblemSolutions {
     public static int numRescueSleds(int[] people, int limit) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        Arrays.sort(people);
+        int sledCount = 0;
+        int currentWeight = 0;
 
-        return -1;
+        for (int weight : people) {
+
+            if (currentWeight + weight < limit) {
+                currentWeight += weight;
+            } else if (currentWeight + weight == limit) {
+                sledCount++;
+                currentWeight = 0;
+            } else {
+                sledCount++;
+                currentWeight = weight;
+            }
+
+        }
+        if (currentWeight != 0) {
+            sledCount++;
+        }
+        return sledCount;
 
     }
 
