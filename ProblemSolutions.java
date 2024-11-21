@@ -110,7 +110,35 @@ public class ProblemSolutions {
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
 
-        return;
+        int leftPosition = left;
+        int rightPosition = mid + 1;
+        int n = right - left + 1;
+        int tempIndex = 0;
+        int[] tempArray = new int[n];
+
+        while (leftPosition <= mid && rightPosition <= right) {
+
+            if (arr[leftPosition] % k == 0) {
+                tempArray[tempIndex++] = arr[leftPosition++];
+            } else if (arr[rightPosition] % k == 0) {
+                tempArray[tempIndex++] = arr[rightPosition++];
+            } else if ((arr[leftPosition] < arr[rightPosition])) {
+                tempArray[tempIndex++] = arr[leftPosition++];
+            } else {
+                tempArray[tempIndex++] = arr[rightPosition++];
+            }
+        }
+        while (leftPosition <= mid) {
+            tempArray[tempIndex++] = arr[leftPosition++];
+        }
+        while (rightPosition <= right) {
+            tempArray[tempIndex++] = arr[rightPosition++];
+        }
+
+        for (int i = 0; i < n; i++) {
+            arr[left] = tempArray[i];
+            left++;
+        }
 
     }
 
